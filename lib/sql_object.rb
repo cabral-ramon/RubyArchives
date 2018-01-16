@@ -3,7 +3,7 @@ require_relative 'associatable'
 require_relative 'searchable'
 require 'active_support/inflector'
 
-class SQLObject
+class RubyArchives
 
   extend Associatable
   extend Searchable

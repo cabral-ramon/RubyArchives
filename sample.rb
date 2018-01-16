@@ -1,6 +1,6 @@
 require_relative 'lib/sql_object'
 
-class Corgi < SQLObject
+class Corgi < RubyArchives
   self.finalize!
 
   belongs_to("human", {
@@ -12,7 +12,7 @@ class Corgi < SQLObject
   has_one_through("house", "human", "house")
 end
 
-class Human < SQLObject
+class Human < RubyArchives
   self.finalize!
 
   has_many("corgis", {
@@ -29,7 +29,7 @@ class Human < SQLObject
 end
 
 
-class House < SQLObject
+class House < RubyArchives
   self.finalize!
 
   has_many("humans", {
