@@ -1,5 +1,5 @@
 require_relative 'db_connection'
-require_relative '01_sql_object'
+require_relative 'sql_object'
 
 module Searchable
   def where(params)
@@ -8,11 +8,17 @@ module Searchable
     else
       where_line = params.keys.map { |key| "#{key} = ?"}.join('')
     end
-    DBConnection.execute(<<-SQL, params.values)
-    SELECT *
-    FROM #{self.table_name}
-    WHERE #{where_line}
+
+    query_results = DBConnection.execute(<<-SQL, params.values)
+    SELECT
+      *
+    FROM
+      #{self.table_name}
+    WHERE
+      #{where_line}
     SQL
+
+    parse_all(query_results)
   end
 end
 
