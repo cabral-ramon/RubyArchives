@@ -26,7 +26,7 @@ class BelongsToOptions < AssocOptions
       :class_name => name.to_s.camelcase,
       :primary_key => :id
     }
-    # debugger
+    
     defaults.keys.each do |key|
       self.send("#{key}=", options[key] || defaults[key])
     end
