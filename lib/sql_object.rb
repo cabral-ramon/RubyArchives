@@ -36,7 +36,6 @@ class SQLObject
   end
 
   def self.parse_all(results)
-    # debugger
     list = []
     results.each do |attr_hash|
       list << self.new(attr_hash)
@@ -52,7 +51,6 @@ class SQLObject
   end
 
   def initialize(params = {})
-    # debugger
     params.each do |col, val|
       col = col.to_sym
       if self.class.columns.include?(col)
@@ -74,10 +72,10 @@ class SQLObject
   end
 
   def insert
-
     col_names = self.class.columns.drop(1).map(&:to_s).join(",")
     num_question_marks = self.class.columns.drop(1).count
     question_marks = (["?"] * num_question_marks).join(',')
+
     DBConnection.execute(<<-SQL, *attribute_values.drop(1))
     INSERT INTO #{self.class.table_name} (#{col_names})
     VALUES (#{question_marks})
@@ -88,7 +86,6 @@ class SQLObject
 
   def update
     col_names = self.class.columns.drop(1).map{|x| x.to_s + '=?'}.join(',')
-    # debugger
     DBConnection.execute(<<-SQL, *attribute_values.rotate)
     UPDATE #{self.class.table_name}
     SET #{col_names}
