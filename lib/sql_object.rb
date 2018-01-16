@@ -50,6 +50,14 @@ class SQLObject
     self.parse_all(table)
   end
 
+  def self.first
+    self.all.first
+  end
+
+  def self.last
+    self.all.last
+  end
+
   def self.parse_all(results)
     list = []
     results.each do |attr_hash|
