@@ -1,20 +1,35 @@
 require_relative 'db_connection'
+require_relative 'associatable'
+require_relative 'searchable'
 require 'active_support/inflector'
 
 class SQLObject
+
+  extend Associatable
+  extend Searchable
+
   def self.columns
-    @columns ||= DBConnection.execute2("SELECT * FROM #{self.table_name}")
-    @columns.first.map(&:to_sym)
+    return @columns if @columns
+    cols = DBConnection.execute2(<<-SQL).first
+      SELECT
+        *
+      FROM
+        #{self.table_name}
+      LIMIT
+        0
+      SQL
+    cols.map!(&:to_sym)
+    @columns = cols
   end
 
   def self.finalize!
     self.columns.each do |col|
-      define_method("#{col}=") do |value|
-        attributes[col] = value
+      define_method(col) do
+        self.attributes[col]
       end
 
-      define_method(col) do
-        attributes[col]
+      define_method("#{col}=") do |value|
+        self.attributes[col] = value
       end
     end
   end

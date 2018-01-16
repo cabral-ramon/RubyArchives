@@ -1,5 +1,6 @@
 require_relative 'searchable'
 require 'active_support/inflector'
+# require 'byebug'
 
 
 class AssocOptions
@@ -22,10 +23,10 @@ class BelongsToOptions < AssocOptions
   def initialize(name, options = {})
     defaults = {
       :foreign_key => "#{name}_id".to_sym,
-      :primary_key => :id,
-      :class_name => name.to_s.camelcase
+      :class_name => name.to_s.camelcase,
+      :primary_key => :id
     }
-
+    # debugger
     defaults.keys.each do |key|
       self.send("#{key}=", options[key] || defaults[key])
     end
@@ -88,7 +89,7 @@ module Associatable
       source_primary_key = source_options.primary_key
       source_foreign_key = source_options.foreign_key
 
-      key_val = self.send(through_fkey)
+      key_val = self.send(through_foreign_key)
       results = DBConnection.execute(<<-SQL, key_val)
         SELECT
           #{source_table}.*
@@ -106,8 +107,4 @@ module Associatable
     end
   end
 
-end
-
-class SQLObject
-  extend Associatable
 end
