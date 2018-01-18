@@ -1,4 +1,4 @@
-require_relative 'lib/sql_object'
+require_relative 'lib/ruby_archives'
 
 class Corgi < RubyArchives
   self.finalize!
