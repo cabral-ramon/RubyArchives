@@ -15,10 +15,10 @@ Ruby Archives is a lightweight module that allows you to interact with your Sqli
 5. Try the different instance and class methods below and discover the power of Ruby Archives!
 
 examples:
-![Pry Sample](https://github.com/cabral-ramon/RubyArchives/tree/master/images/Pry_sample.png)
+![Pry Sample](https://github.com/cabral-ramon/RubyArchives/blob/master/images/Pry_sample.png)
 
 association examples:
-![Association_samples](https://github.com/cabral-ramon/RubyArchives/tree/master/images/Association_samples.png)
+![Association_samples](https://github.com/cabral-ramon/RubyArchives/blob/master/images/Association_samples.png)
 ## Methods included:
 
 ### Instance methods:
